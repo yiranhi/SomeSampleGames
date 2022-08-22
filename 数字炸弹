@@ -1,0 +1,91 @@
+//猜数字游戏(猜1-100之间的数字)
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+//菜单函数
+void menu()
+{
+	printf("**********************\n");
+	printf("*** 开始游戏（Y/N）***\n");
+	printf("**********************\n");
+	printf("\n");
+}
+
+//游戏函数 1.产生随机数 2.猜数字
+void game()
+{
+	//1.产生随机数
+	int in = 0;                //in means input
+	int ran;                   //ran means random number
+	ran = rand() % 100 + 1;    //random number between 1-100
+
+	//2.猜数字
+	while (1)
+	{
+		//printf("%d\n", ran);    //看看随机数是啥，在游戏中应注释掉
+		printf("\n");
+		printf("请输入：");
+		scanf("%d", &in);
+		if (in > ran)
+		{
+			printf("猜大了\n");
+			continue;
+		}
+		else if (in < ran)
+		{
+			printf("猜小了\n");
+			continue;
+		}
+		else
+		{
+			printf("猜对了\n");
+			printf("\n");
+			break;
+		}
+	}
+}
+
+
+int main()
+{
+	char c;                             //c 表示 choose
+	char con;                           //con 表示 continue
+
+	//产生随机数种子
+	srand((unsigned int)time(NULL));    //让时间戳time（）函数作为srand（）函数的随机数种子
+	menu();                             //调用菜单函数
+
+	do
+	{
+		scanf("%s", &c);
+		switch(c)                        //switch函数对选择输入（变量为c）进行相应的判断
+		{
+			case'Y':
+				do
+				{
+					printf("开始游戏");
+					game();             //调用游戏函数
+					printf("是否继续游戏（Y/N）");
+					printf("\n");
+					scanf("%s",&con);
+					if (con == 'N')
+					{
+						printf("退出游戏\n");
+						break;
+					}
+				}
+				while (con == 'Y');    //当玩家选择继续（变量为con）游戏时，循环
+				break;
+			case'N':
+				printf("退出游戏\n");
+				break;
+			default:
+				printf("输入错误，请重新选择\n");
+				printf("\n");
+				break;
+		}
+	} 
+	while (c != 'Y' && c != 'N');    //当玩家选择（变量为c）既非Y也非N时，循环，让其重新选择
+	return 0;
+}
